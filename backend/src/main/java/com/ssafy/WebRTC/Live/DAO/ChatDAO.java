@@ -34,9 +34,7 @@ public class ChatDAO {
     // title 기준 채팅방 검색
 
     // 채팅방 생성
-    public ChatRoomDTO createChatRoom(String title){
 
-    }
 
     // 채팅방 입장 - 인원 + 1
 
