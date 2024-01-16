@@ -13,7 +13,7 @@ public class ChatRoomDTO {
 
     private HashMap<String, String> userList = new HashMap<String, String>();
 
-    public ChatRoomDTO create(String title) {
+    public static ChatRoomDTO create(String title) {
         ChatRoomDTO live = new ChatRoomDTO();
         live.roomId = UUID.randomUUID().toString();
         live.title = title;

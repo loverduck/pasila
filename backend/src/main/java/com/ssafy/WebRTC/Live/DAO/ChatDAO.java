@@ -1,6 +1,7 @@
 package com.ssafy.WebRTC.Live.DAO;
 
 import com.ssafy.WebRTC.Live.DTO.ChatRoomDTO;
+import com.ssafy.WebRTC.Live.DTO.ChatRoomMap;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -34,10 +35,85 @@ public class ChatDAO {
     // title 기준 채팅방 검색
 
     // 채팅방 생성
-
+    public ChatRoomDTO createChatRoom(String title){
+        ChatRoomDTO chatRoom = ChatRoomDTO.create(title);
+        return  chatRoom;
+    }
 
     // 채팅방 입장 - 인원 + 1
+    public static void plusUserCnt(String roomId){
+        log.info("cnt {}", ChatRoomMap.getInstance().getChatRooms().get(roomId).getUserCount());
+        ChatRoomDTO room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
+        room.setUserCount(room.getUserCount()+1);
+    }
 
     // 채팅방 퇴장 - 인원 - 1
+    public static void minusUserCnt(String roomId){
+        ChatRoomDTO room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
+        room.setUserCount(room.getUserCount()-1);
+    }
+
+
+
+
+    // 채팅방 유저 리스트에 유저 추가
+    public static String addUser(Map<String, ChatRoomDTO> chatRoomMap, String roomId, String userName){
+        ChatRoomDTO room = chatRoomMap.get(roomId);
+        String userID = userName;
+
+        // 아이디 중복 확인 후 userList 에 추가
+        //room.getUserList().put(userUUID, userName);
+
+        HashMap<String, String> userList = (HashMap<String, String>)room.getUserList();
+        userList.put(userID, userName);
+
+
+        return userID;
+    }
+
+
+
+
+    // 채팅방 유저 이름 중복 확인
+    public String isDuplicateName(Map<String, ChatRoomDTO> chatRoomMap, String roomId, String username){
+        ChatRoomDTO room = chatRoomMap.get(roomId);
+        String tmp = username;
+
+        // 만약 userName 이 중복이라면 랜덤한 숫자를 붙임
+        // 이때 랜덤한 숫자를 붙였을 때 getUserlist 안에 있는 닉네임이라면 다시 랜덤한 숫자 붙이기!
+        while(room.getUserList().containsValue(tmp)){
+            int ranNum = (int) (Math.random()*100)+1;
+
+            tmp = username+ranNum;
+        }
+
+        return tmp;
+    }
+
+    // 채팅방 userName 조회
+    public static String findUserNameByRoomIdAndUserID(Map<String, ChatRoomDTO> chatRoomMap, String roomId, String userID){
+        ChatRoomDTO room = chatRoomMap.get(roomId);
+        return (String) room.getUserList().get(userID);
+    }
+
+    // 채팅방 전체 userlist 조회
+    public static ArrayList<String> getUserList(Map<String, ChatRoomDTO> chatRoomMap, String roomId){
+        ArrayList<String> list = new ArrayList<>();
+
+        ChatRoomDTO room = chatRoomMap.get(roomId);
+
+        // hashmap 을 for 문을 돌린 후
+        // value 값만 뽑아내서 list 에 저장 후 reutrn
+        room.getUserList().forEach((key, value) -> list.add((String) value));
+        return list;
+    }
+
+    //채팅방에서 삭제
+    public static void delUser(Map<String, ChatRoomDTO> chatRoomMap, String roomId, String userID){
+        ChatRoomDTO room = chatRoomMap.get(roomId);
+        room.getUserList().remove(userID);
+    }
+
+
 
 }
