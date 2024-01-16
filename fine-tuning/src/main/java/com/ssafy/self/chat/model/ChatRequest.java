@@ -16,10 +16,11 @@ public class ChatRequest {
     private String model;
     private List<Message> messages;
 
-    public ChatRequest(String model, String prompt) {
+    public ChatRequest(String model, String system, String prompt) {
         this.model = model;
 
         this.messages = new ArrayList<>();
+        this.messages.add(new Message("system", system));
         this.messages.add(new Message("assistant", prompt));
     }
 
