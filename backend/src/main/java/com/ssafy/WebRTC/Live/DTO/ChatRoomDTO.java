@@ -10,8 +10,7 @@ public class ChatRoomDTO {
     private String roomId; // 방송 번호
     private String title; // 방송 제목
     private long userCount; // 인원수
-
-    private HashMap<String, String> userList = new HashMap<String, String>();
+    private HashMap<String, String> userList = new HashMap<String, String>(); // 사용자 아이디, 사용자 채널명
 
     public ChatRoomDTO create(String title) {
         ChatRoomDTO live = new ChatRoomDTO();
