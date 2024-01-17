@@ -3,6 +3,7 @@ package com.ssafy.WebRTC.Live.Controller;
 
 import com.ssafy.WebRTC.Live.DAO.ChatDAO;
 import com.ssafy.WebRTC.Live.DTO.ChatDTO;
+import com.ssafy.WebRTC.Live.DTO.ChatRoomDTO;
 import com.ssafy.WebRTC.Live.DTO.ChatRoomMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +13,11 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+
 
 
 import java.util.ArrayList;
@@ -116,4 +117,41 @@ public class ChatController {
 //
 //        return userName;
 //    }
+// 채팅방 생성
+// 채팅방 생성 후 다시 / 로 return
+@PostMapping("/chat/createroom")
+public String createRoom(@RequestParam("roomName") String name, RedirectAttributes rttr) {
+
+    // log.info("chk {}", secretChk);
+
+    // 매개변수 : 방 이름, 패스워드, 방 잠금 여부, 방 인원수
+    ChatRoomDTO room;
+
+    room = ChatDAO.createChatRoom(name);
+
+
+    log.info("CREATE Chat Room [{}]", room);
+
+    rttr.addFlashAttribute("roomName", room);
+    return "redirect:/";
+}
+
+    // 채팅방 입장 화면
+    // 파라미터로 넘어오는 roomId 를 확인후 해당 roomId 를 기준으로
+    // 채팅방을 찾아서 클라이언트를 chatroom 으로 보낸다.
+    @GetMapping("/chat/room")
+    public String roomDetail(Model model, String roomId){
+
+        log.info("roomId {}", roomId);
+
+
+        ChatRoomDTO room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
+
+        model.addAttribute("room", room);
+
+        return "chatroom";
+
+    }
+
+
 }

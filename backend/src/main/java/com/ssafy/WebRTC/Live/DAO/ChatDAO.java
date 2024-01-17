@@ -35,7 +35,7 @@ public class ChatDAO {
     // title 기준 채팅방 검색
 
     // 채팅방 생성
-    public ChatRoomDTO createChatRoom(String title){
+    public static ChatRoomDTO createChatRoom(String title){
         ChatRoomDTO chatRoom = ChatRoomDTO.create(title);
         return  chatRoom;
     }
@@ -71,24 +71,6 @@ public class ChatDAO {
         return userID;
     }
 
-
-
-
-    // 채팅방 유저 이름 중복 확인
-    public String isDuplicateName(Map<String, ChatRoomDTO> chatRoomMap, String roomId, String username){
-        ChatRoomDTO room = chatRoomMap.get(roomId);
-        String tmp = username;
-
-        // 만약 userName 이 중복이라면 랜덤한 숫자를 붙임
-        // 이때 랜덤한 숫자를 붙였을 때 getUserlist 안에 있는 닉네임이라면 다시 랜덤한 숫자 붙이기!
-        while(room.getUserList().containsValue(tmp)){
-            int ranNum = (int) (Math.random()*100)+1;
-
-            tmp = username+ranNum;
-        }
-
-        return tmp;
-    }
 
     // 채팅방 userName 조회
     public static String findUserNameByRoomIdAndUserID(Map<String, ChatRoomDTO> chatRoomMap, String roomId, String userID){
