@@ -1,6 +1,6 @@
 # OpenVidu
 
-[OpenVidu](https://openvidu.io/, "OpenVidu link")
+[OpenVidu](https://openvidu.io/ "OpenVidu link")
 
 - WebRTC 라이브러리
 
@@ -15,18 +15,18 @@
 
 ### Application Server
 
-- DOCS: [JAVA](https://docs.openvidu.io/en/stable/application-server/openvidu-basic-java/, "tutorial: java docs")
+- DOCS: [JAVA](https://docs.openvidu.io/en/stable/application-server/openvidu-basic-java/ "tutorial: java docs")
 
-- GITHUB: [JAVA](https://github.com/OpenVidu/openvidu-tutorials/tree/master/openvidu-basic-java, "tutorial: java link")
+- GITHUB: [JAVA](https://github.com/OpenVidu/openvidu-tutorials/tree/master/openvidu-basic-java "tutorial: java link")
 
 ### OpenVidu deployment
 
-1. docker 설치([Docker](https://www.docker.com/get-started/, "docker link"))
+1. docker 설치([Docker](https://www.docker.com/get-started/ "docker link"))
 
 2. ```docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-dev:2.29.0```
 
 ### Application Client
 
-- DOCS: [VUE](https://docs.openvidu.io/en/stable/tutorials/openvidu-vue/, "tutorial: vue docs")
+- DOCS: [VUE](https://docs.openvidu.io/en/stable/tutorials/openvidu-vue/ "tutorial: vue docs")
 
-- GITHUB: [VUE](https://github.com/OpenVidu/openvidu-tutorials/tree/master/openvidu-vue, "tutorial: vue link")
+- GITHUB: [VUE](https://github.com/OpenVidu/openvidu-tutorials/tree/master/openvidu-vue "tutorial: vue link")
