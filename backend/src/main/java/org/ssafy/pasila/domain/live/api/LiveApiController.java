@@ -19,11 +19,15 @@ import org.ssafy.pasila.domain.live.dto.request.CreateQsheetRequestDto;
 import org.ssafy.pasila.domain.live.dto.response.CreateQsheetResponseDto;
 import org.ssafy.pasila.domain.live.service.LiveService;
 import org.ssafy.pasila.domain.live.service.OpenviduService;
+import org.ssafy.pasila.domain.member.dto.ChannelLiveDto;
 import org.ssafy.pasila.domain.product.dto.ProductResponseDto;
 import org.ssafy.pasila.domain.product.service.ProductService;
 import org.ssafy.pasila.global.infra.gpt3.GptClient;
 import org.ssafy.pasila.global.infra.redis.service.LiveRedisService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -48,6 +52,13 @@ public class LiveApiController {
 
     // Pair - SessionId, RecordingId
     private final Map<String, String> mapRecordings = new ConcurrentHashMap<>();
+
+    @Operation(summary = "Get Live Schedule", description = "일자별 라이브 목록 조회")
+    @GetMapping("/{date}")
+    public ApiCommonResponse<?> findLiveList(@PathVariable("date") LocalDate date) {
+        List<ChannelLiveDto> results = liveService.getScheduledLiveById(date);
+        return ApiCommonResponse.successResponse(HttpStatus.OK.value(), results);
+    }
 
     @Operation(summary = "Live On", description = "라이브 방송 시작")
     @PutMapping("/{liveId}/on")

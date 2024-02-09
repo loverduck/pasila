@@ -8,9 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.ssafy.pasila.domain.apihandler.ErrorCode;
 import org.ssafy.pasila.domain.apihandler.RestApiException;
 import org.ssafy.pasila.domain.live.entity.Live;
+import org.ssafy.pasila.domain.live.repository.LiveQueryRepository;
 import org.ssafy.pasila.domain.live.repository.LiveRepository;
+import org.ssafy.pasila.domain.member.dto.ChannelLiveDto;
 import org.ssafy.pasila.domain.product.repository.ProductRepository;
 
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.time.LocalDateTime.*;
 
@@ -21,6 +27,8 @@ public class LiveService {
     private final RedisTemplate<String, String> redisTemplate;
 
     private final LiveRepository liveRepository;
+
+    private final LiveQueryRepository liveQueryRepository;
 
     private final ProductRepository productRepository;
 
@@ -64,5 +72,9 @@ public class LiveService {
     public String getProductId(String liveId) {
         Live live = liveRepository.findById(liveId).orElseThrow(() -> new RestApiException(ErrorCode.RESOURCE_NOT_FOUND));
         return live.getProduct().getId();
+    }
+
+    public List<ChannelLiveDto> getScheduledLiveById(LocalDate date) {
+        return liveQueryRepository.findScheduledLiveById(date);
     }
 }
