@@ -65,4 +65,11 @@ public class LiveService {
         Live live = liveRepository.findById(liveId).orElseThrow(() -> new RestApiException(ErrorCode.RESOURCE_NOT_FOUND));
         return live.getProduct().getId();
     }
+
+    @Transactional
+    public String deleteLive(String id) {
+        Live live = getLiveById(id);
+        live.setActive(false);
+        return live.getId();
+    }
 }

@@ -49,6 +49,13 @@ public class LiveApiController {
     // Pair - SessionId, RecordingId
     private final Map<String, String> mapRecordings = new ConcurrentHashMap<>();
 
+    @Operation(summary = "Delete Live", description = "라이브 삭제")
+    @DeleteMapping("/{liveId}")
+    public ApiCommonResponse<?> deleteLive(@PathVariable("liveId") String id){
+        String liveId = liveService.deleteLive(id);
+        return ApiCommonResponse.successResponse(HttpStatus.OK.value(), liveId);
+    }
+
     @Operation(summary = "Live On", description = "라이브 방송 시작")
     @PutMapping("/{liveId}/on")
     public ApiCommonResponse<?> liveOn(@PathVariable("liveId") String liveId)
