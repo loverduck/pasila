@@ -134,6 +134,7 @@ AI를 활용한 라이브 커머스 준비, 진행으로
 
 ![pasila-architecture](/uploads/540406e1d64fac25010e1f9f91bdfd4b/pasila-architecture.png)
 
+<!--
 ### 6. 팀원 소개
 
 | 이름   | 역할             | 설명                                    |
@@ -144,3 +145,4 @@ AI를 활용한 라이브 커머스 준비, 진행으로
 | 정유경 | Back-end         | SSE를 활용한 실시간 재고 확인 기능 개발 |
 | 전경향 | Back-end         | WebRTC를 이용한 라이브 진행 기능 개발   |
 | 최동헌 | Back-end         | Spring Security                         |
+-->
